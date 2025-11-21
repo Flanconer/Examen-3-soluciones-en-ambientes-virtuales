@@ -11,7 +11,7 @@
   <!-- Styles -->
   <link href="./css/styles.css" rel="stylesheet">
 
-  <!-- Importmap usando TUS librerías locales de Three.js -->
+  <!-- Importmap usando Three.js desde CDN -->
   <script type="importmap">
    {
     "imports": {
@@ -21,39 +21,111 @@
    }
   </script>
 </head>
-<body>
-  <nav class="navbar navbar-expand-lg border-bottom bg-body">
+<body class="bg-body-tertiary">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg glass-nav border-bottom">
     <div class="container">
-      <a class="navbar-brand fw-semibold" href="#">VR — Sketchfab + Mixamo</a>
-      <div class="ms-auto small opacity-75">Three.js + Bootstrap</div>
+      <a class="navbar-brand d-flex align-items-center gap-2 fw-semibold" href="#">
+        <span class="vr-logo">VR</span>
+        <span>Experiencia 3D Estereoscópica</span>
+      </a>
+      <div class="ms-auto d-flex flex-column flex-sm-row gap-2 align-items-sm-center small text-secondary">
+        <span class="badge text-bg-primary rounded-pill">Three.js</span>
+        <span class="badge text-bg-secondary rounded-pill">Bootstrap 5</span>
+      </div>
     </div>
   </nav>
 
-  <main class="container py-4">
-    <div class="row g-4">
+  <!-- HERO + VIEWER -->
+  <main class="container py-4 py-lg-5">
+    <div class="row g-4 align-items-stretch">
 
+      <!-- Panel lateral con info -->
+      <div class="col-12 col-lg-4">
+        <section class="card glass-card border-0 h-100">
+          <div class="card-body d-flex flex-column gap-3">
+            <div>
+              <h1 class="h4 mb-1 fw-bold">Visualizador VR / Estereoscopía</h1>
+              <p class="text-secondary mb-0 small">
+                Explora tu modelo 3D con <span class="fw-semibold">Three.js</span>, activa el modo VR con tus gafas
+                y disfruta del efecto estereoscópico para una experiencia inmersiva.
+              </p>
+            </div>
 
-      <!-- Solo el visor 3D ocupa todo el ancho -->
-      <div class="col-12">
-        <div class="card shadow-sm h-100">
-          <div class="card-body p-0 position-relative">
-            <div id="stage" class="stage"></div>
-            <div id="loader" class="loading-overlay d-none">
-              <div class="spinner-border" role="status"></div>
-              <span class="ms-2">Cargando…</span>
+            <div class="vr-divider my-1"></div>
+
+            <div class="small">
+              <h2 class="h6 text-uppercase text-secondary fw-semibold mb-2">Modo de uso</h2>
+              <ul class="list-unstyled small mb-0 d-grid gap-1">
+                <li>• Usa el <span class="fw-semibold">mouse</span> para rotar, acercar y alejar la escena.</li>
+                <li>• Pulsa el botón <span class="fw-semibold">“VR”</span> para entrar al modo realidad virtual.</li>
+                <li>• En tu móvil, coloca el dispositivo en tus gafas VR tipo Cardboard.</li>
+                <li>• Ajusta la cabeza suavemente para explorar el entorno.</li>
+              </ul>
+            </div>
+
+            <div class="vr-divider my-1"></div>
+
+            <div class="small">
+              <h2 class="h6 text-uppercase text-secondary fw-semibold mb-2">Detalles del proyecto</h2>
+              <p class="mb-1">
+                Examen 3 — <span class="fw-semibold">Soluciones en Ambientes Virtuales</span>
+              </p>
+              <p class="mb-0">
+                Alumno: <span class="fw-semibold">Edgar Hernandez Mendoza</span>
+              </p>
+            </div>
+
+            <div class="mt-auto pt-2 small text-secondary">
+              <span class="badge text-bg-dark rounded-pill me-1">VR Ready</span>
+              <span class="badge text-bg-dark rounded-pill me-1">Sketchfab</span>
+              <span class="badge text-bg-dark rounded-pill">Mixamo</span>
             </div>
           </div>
-        </div>
+        </section>
       </div>
 
+      <!-- Visor 3D -->
+      <div class="col-12 col-lg-8">
+        <section class="card glass-card border-0 h-100 overflow-hidden">
+          <div class="card-header d-flex justify-content-between align-items-center small border-0 bg-transparent px-3 py-2">
+            <div class="d-flex align-items-center gap-2">
+              <span class="vr-pill-live"></span>
+              <span class="text-uppercase fw-semibold text-secondary">Visor 3D en tiempo real</span>
+            </div>
+            <span class="text-secondary">WebXR · Estereoscopía</span>
+          </div>
+
+          <div class="card-body p-0 position-relative">
+            <div id="stage" class="stage"></div>
+
+            <!-- Overlay loader -->
+            <div id="loader" class="loading-overlay d-none">
+              <div class="d-flex flex-column align-items-center gap-2">
+                <div class="spinner-border spinner-border-sm" role="status"></div>
+                <span class="small text-secondary">Cargando modelo 3D…</span>
+              </div>
+            </div>
+
+            <!-- Overlay de ayuda dentro del visor -->
+            <div class="stage-hint small text-secondary d-none d-md-flex align-items-center gap-2">
+              <span class="vr-dot"></span>
+              <span>Arrastra para orbitar · Rueda para hacer zoom · Usa el botón VR para entrar a inmersión</span>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   </main>
 
-  <footer class="border-top py-3 small text-center text-secondary">
-    Exmaen 3 soluciones en ambientes virtuales Edgar Hernandez Mendoza
+  <!-- FOOTER -->
+  <footer class="border-top py-3 small text-center text-secondary mt-3">
+    Desarrollado con ❤ usando Three.js, WebXR y Bootstrap.
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script type="module" src="./js/main.js"></script>
 </body>
 </html>
+
