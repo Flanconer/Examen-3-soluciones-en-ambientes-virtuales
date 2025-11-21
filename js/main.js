@@ -59,17 +59,31 @@ function init() {
   controls.enableDamping = true;
   controls.target.set(0, 1, 0);
 
-  // Luces
-  scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-  const dir = new THREE.DirectionalLight(0xffffff, 1.0);
-  dir.position.set(5, 10, 5);
+  // Luces (más iluminación)
+  const ambient = new THREE.AmbientLight(0xffffff, 1.0);
+  scene.add(ambient);
+
+  const hemi = new THREE.HemisphereLight(0xffffff, 0x404040, 0.8);
+  hemi.position.set(0, 20, 0);
+  scene.add(hemi);
+
+  const dir = new THREE.DirectionalLight(0xffffff, 1.8);
+  dir.position.set(5, 12, 5);
   dir.castShadow = true;
+  dir.shadow.mapSize.width = 2048;
+  dir.shadow.mapSize.height = 2048;
+  dir.shadow.camera.near = 0.5;
+  dir.shadow.camera.far = 50;
   scene.add(dir);
+
+  const fill = new THREE.PointLight(0xffffff, 0.9, 80);
+  fill.position.set(-6, 6, -4);
+  scene.add(fill);
 
   // Piso
   const floor = new THREE.Mesh(
     new THREE.CircleGeometry(30, 64),
-    new THREE.MeshStandardMaterial({ color: 0x222733, roughness: 1 })
+    new THREE.MeshStandardMaterial({ color: 0x3a4356, roughness: 0.7, metalness: 0.1 })
   );
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = true;
@@ -118,7 +132,6 @@ function init() {
 
   // Cargas por defecto cuando no hay panel de controles
   cargarEscenario('./1.glb');
-  // Si quieres personaje por defecto, descomenta y ajusta la ruta:
   // cargarPersonaje('./assets/personaje.fbx');
 }
 
@@ -155,7 +168,9 @@ function cargarEscenario(url) {
 
     if (useFBX) currentEscenario.scale.setScalar(0.01);
 
-    currentEscenario.position.set(0, 0, 0);
+    // elevar 1 cm sobre el piso para evitar parpadeos (z-fighting)
+    currentEscenario.position.set(0, 0.01, 0);
+
     scene.add(currentEscenario);
     fitSceneToCamera(currentEscenario);
     setLoading(false);
